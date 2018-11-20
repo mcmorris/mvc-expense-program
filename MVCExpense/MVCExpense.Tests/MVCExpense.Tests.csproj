@@ -99,6 +99,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mockup\MockUpCurrencyListing.cs" />
+    <Compile Include="Models\ExchangeRateTest.cs" />
+    <Compile Include="Models\ISO4217CurrencyFormattingTest.cs" />
+    <Compile Include="Models\TestLookupValidCurrency.cs" />
+    <Compile Include="Parser\LineValidatorTest.cs" />
+    <Compile Include="Parser\CSVParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -124,9 +130,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExpenseModel\ExpenseModel.csproj">
+      <Project>{57a0742c-aab9-442c-9cb2-6f9e83b3f3c7}</Project>
+      <Name>ExpenseModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MVCExpense\MVCExpense.csproj">
       <Project>{B103989C-D3B2-48E5-BEDB-B3302A46F292}</Project>
       <Name>MVCExpense</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Validation\Validation.csproj">
+      <Project>{5366d76a-0621-4917-a181-582b536604fc}</Project>
+      <Name>Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

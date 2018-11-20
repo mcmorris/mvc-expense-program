@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCExpense", "MVCExpense\MV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCExpense.Tests", "MVCExpense.Tests\MVCExpense.Tests.csproj", "{7F866E39-A45F-4059-9128-FA517837A92E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseModel", "ExpenseModel\ExpenseModel.csproj", "{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "Validation\Validation.csproj", "{5366D76A-0621-4917-A181-582B536604FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7F866E39-A45F-4059-9128-FA517837A92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F866E39-A45F-4059-9128-FA517837A92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F866E39-A45F-4059-9128-FA517837A92E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5366D76A-0621-4917-A181-582B536604FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5366D76A-0621-4917-A181-582B536604FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5366D76A-0621-4917-A181-582B536604FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5366D76A-0621-4917-A181-582B536604FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

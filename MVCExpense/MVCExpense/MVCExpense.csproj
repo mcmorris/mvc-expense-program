@@ -57,6 +57,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="OpenExchangeRates, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenExchangeRates.1.2.0\lib\OpenExchangeRates.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -157,24 +161,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Account.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Models\Attachment.cs" />
-    <Compile Include="Models\AttachmentCoverage.cs" />
-    <Compile Include="Models\AuditAll.cs" />
-    <Compile Include="Models\BankImport.cs" />
+    <Compile Include="Controllers\OER\ICurrencyListing.cs" />
+    <Compile Include="Controllers\OER\CurrencyListing.cs" />
+    <Compile Include="Controllers\OER\IStockExchangeUpdater.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\ConvertableCurrency.cs" />
-    <Compile Include="Models\CurrencySum.cs" />
-    <Compile Include="ExpenseModel.cs" />
-    <Compile Include="File.cs" />
+    <Compile Include="Controllers\OER\IStockExchange.cs" />
+    <Compile Include="Controllers\OER\StockExchange.cs" />
+    <Compile Include="Controllers\OER\StockExchangeUpdater.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ImportStatus.cs" />
-    <Compile Include="Models\InvalidTransaction.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\CSVParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -186,9 +187,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Models\Statement.cs" />
-    <Compile Include="Models\Transaction.cs" />
-    <Compile Include="Models\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -256,6 +254,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExpenseModel\ExpenseModel.csproj">
+      <Project>{57A0742C-AAB9-442C-9CB2-6F9E83B3F3C7}</Project>
+      <Name>ExpenseModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Validation\Validation.csproj">
+      <Project>{5366D76A-0621-4917-A181-582B536604FC}</Project>
+      <Name>Validation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

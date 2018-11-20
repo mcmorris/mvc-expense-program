@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="HomeController.cs" company="Michael Morris">
-//  (c) Michael Morris, 2018.
-// </copyright>
-// <summary>
-//   Defines the HomeController class.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace MVCExpense.Controllers
+﻿namespace MVCExpense.Controllers
 {
     using System.Web.Mvc;
 
