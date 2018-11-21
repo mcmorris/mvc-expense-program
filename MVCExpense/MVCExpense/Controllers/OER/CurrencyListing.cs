@@ -6,7 +6,7 @@
 
     using ExpenseModel;
 
-    // TODO: Replace with controller
+    // TODO: Convert to controller
     public class CurrencyListing : ICurrencyListing
     {
         protected IList<ISO4217Currency> Currencies;
