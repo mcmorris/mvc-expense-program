@@ -1,16 +1,51 @@
 ﻿namespace ExpenseModel
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    using global::Validation;
+
+    [Table("ExchangeRate")]
     public class ExchangeRate
     {
-        public int             Id             { get; set; }
-        public DateTime        Effective      { get; set; }
-        public decimal         ConversionRate { get; set; }
-        public ISO4217Currency CurrencyFrom   { get; set; }
-        public ISO4217Currency CurrencyTo     { get; set; }
-        public bool            Active         { get; set; }
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int             Id                     { get; set; }
 
+        [MaxLength(3)]
+        public string          CurrencyFromId         { get; set; }
+
+        [MaxLength(3)]
+        public string          CurrencyToId           { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [DateRangeBetweenYear2000AndNow]
+        [Index("IDX_ExchangeRateEffective")]
+        public DateTime        Effective              { get; set; }
+
+        [Required]
+        public decimal         ConversionRate         { get; set; }
+
+        [ForeignKey("CurrencyFromId")]
+        [Index("IDX_ExchangeRateCurrencyFromId")]
+        public virtual ISO4217Currency CurrencyFrom   { get; set; }
+
+        [ForeignKey("CurrencyToId")]
+        public virtual ISO4217Currency CurrencyTo     { get; set; }
+
+        [Required]
+        public bool            Active                 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ExchangeRate()
+        {
+
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ExchangeRate(
             int             id,
             DateTime        effective,
@@ -23,7 +58,9 @@
             this.Effective = effective;
             this.ConversionRate = conversionRate;
             this.CurrencyFrom = currencyFrom;
+            this.CurrencyFromId = this.CurrencyFrom.Id;
             this.CurrencyTo = currencyTo;
+            this.CurrencyToId = this.CurrencyTo.Id;
             this.Active = active;
         }
 

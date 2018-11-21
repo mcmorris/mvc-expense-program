@@ -42,11 +42,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,9 +58,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecimalCurrencyCultureExtension.cs" />
+    <Compile Include="ExpensesModel.cs" />
+    <Compile Include="Migrations\201811211858103_InitialModel.cs" />
+    <Compile Include="Migrations\201811211858103_InitialModel.Designer.cs">
+      <DependentUpon>201811211858103_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811212129125_AddedAudit.cs" />
+    <Compile Include="Migrations\201811212129125_AddedAudit.Designer.cs">
+      <DependentUpon>201811212129125_AddedAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\AuditAll.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Attachment.cs" />
     <Compile Include="Model\BankImport.cs" />
+    <Compile Include="Model\StatusTypes.cs" />
     <Compile Include="Model\ExchangeRate.cs" />
     <Compile Include="Model\File.cs" />
     <Compile Include="Model\ImportStatus.cs" />
@@ -70,6 +84,11 @@
     <Compile Include="Model\TrackedEntity.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -82,7 +101,18 @@
       <Name>Validation</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811211858103_InitialModel.resx">
+      <DependentUpon>201811211858103_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811212129125_AddedAudit.resx">
+      <DependentUpon>201811212129125_AddedAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

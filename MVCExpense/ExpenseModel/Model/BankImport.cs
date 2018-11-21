@@ -2,10 +2,78 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
+    [Table("BankImport")]
     public class BankImport : TrackedEntity
     {
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int               Id          { get; set; }
+
+        [Index("IDX_BankImportStatementId")]
+        public int?               StatementId { get; set; }
+
+        [Required]
+        public int               FileId      { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        public string            UserId      { get; set; }
+
+        [Required]
+        public int               ImportStatusId { get; set; }
+
+        [ForeignKey("StatementId")]
+        public virtual Statement Statement   { get; set; }
+
+        [ForeignKey("FileId")]
+        public virtual File      File        { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User      ImportedBy  { get; set; }
+
+        [MaxLength(255)]
+        public string            Bank        { get; set; }
+
+        [ForeignKey("ImportStatusId")]
+        public virtual ImportStatus ImportStatus { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InvalidTransaction> InvalidTransactions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
+        #region Calculated fields
+        [NotMapped]
+        public DateTime CoversFrom  => this.Transactions.Min(t => t.DateIncurred);
+
+        [NotMapped]
+        public DateTime CoversUntil => this.Transactions.Max(t => t.DateIncurred);
+
+        [NotMapped]
+        public int SuccessfulTransactionsCount => this.Transactions.Count;
+
+        [NotMapped]
+        public int TransactionErrorsCount => this.InvalidTransactions.Count;
+
+        [NotMapped]
+        public decimal TotalTransactionsCount => this.SuccessfulTransactionsCount + this.TransactionErrorsCount;
+
+        [NotMapped]
+        public decimal DebitSum => this.Transactions.Sum(t => t.Debit.InternalAmount);
+
+        [NotMapped]
+        public decimal CreditSum => this.Transactions.Sum(t => t.Credit.InternalAmount);
+
+        [NotMapped]
+        public decimal Balance => this.DebitSum - this.CreditSum;
+        #endregion
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BankImport()
         {
@@ -13,14 +81,13 @@
             this.Transactions        = new HashSet<Transaction>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BankImport(
             int                      id,
             Statement                statement,
             File                     file,
             User                     importedBy,
             string                   bank,
-            DateTime                 coversFrom,
-            DateTime                 coversUntil,
             ImportStatus             importStatus,
             ICollection<Transaction> transactions,
             ICollection<InvalidTransaction> invalidTransactions,
@@ -34,44 +101,16 @@
         {
             this.Id = id;
             this.Statement = statement;
+            this.StatementId = this.Statement.Id;
             this.File = file;
+            this.FileId = this.File.Id;
             this.ImportedBy = importedBy;
+            this.UserId = this.ImportedBy.Id;
             this.Bank = bank;
-            this.CoversFrom = coversFrom;
-            this.CoversUntil = coversUntil;
             this.ImportStatus = importStatus;
+            this.ImportStatusId = this.ImportStatus.Id;
             this.Transactions = transactions;
             this.InvalidTransactions = invalidTransactions;
         }
-
-        public int Id                    { get; set; }
-        public Statement Statement       { get; set; }
-        public File File                 { get; set; }
-        public User ImportedBy           { get; set; }
-        public string Bank               { get; set; }
-        public DateTime CoversFrom       { get; set; }
-        public DateTime CoversUntil      { get; set; }
-
-        
-        public ImportStatus ImportStatus { get; set; }
-
-        // Calculated fields
-        public int SuccessfulTransactionsCount => this.Transactions.Count;
-
-        public int TransactionErrorsCount => this.InvalidTransactions.Count;
-
-        public decimal TotalTransactionsCount => this.SuccessfulTransactionsCount + this.TransactionErrorsCount;
-
-        public decimal DebitSum => this.Transactions.Sum(t => t.Debit.InternalAmount);
-
-        public decimal CreditSum => this.Transactions.Sum(t => t.Credit.InternalAmount);
-
-        public decimal Balance => this.DebitSum - this.CreditSum;
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<InvalidTransaction> InvalidTransactions { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public ICollection<Transaction> Transactions { get; set; }
     }
 }

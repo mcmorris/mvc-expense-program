@@ -6,7 +6,7 @@
 
     using ExpenseModel;
 
-    // TODO: Replace with controller
+    // TODO: Convert to controller
     public class StockExchange : CurrencyListing, IStockExchange
     {
         private          IList<ExchangeRate>   exchangeRates;

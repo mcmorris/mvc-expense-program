@@ -1,21 +1,68 @@
 ﻿namespace ExpenseModel
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    using global::Validation;
+
+    [Table("Transaction")]
     public class Transaction
     {
-        public int Id                  { get; set; }
-        public Statement Statement     { get; set; }
-        public int StatementId         { get; set; }
-        public BankImport BankImport   { get; set; }
-        public int BankImportId        { get; set; }
-        public string UserName         { get; set; }
-        public DateTime DateIncurred   { get; set; }
-        public string Description      { get; set; }
-        public Money Debit             { get; set; }
-        public Money Credit            { get; set; }
-        public string MaskedCardNumber { get; set; }
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id                          { get; set; }
 
+        [Required]
+        [Index("IDX_TransactionStatementId")]
+        public int StatementId                 { get; set; }
+
+        [Required]
+        [Index("IDX_TransactionBankImportId")]
+        public int BankImportId                { get; set; }
+
+        public int? DebitId                     { get; set; }
+
+        public int? CreditId                    { get; set; }
+
+        [ForeignKey("StatementId")]
+        public virtual Statement Statement     { get; set; }
+
+        [ForeignKey("BankImportId")]
+        public virtual BankImport BankImport   { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        [DataType(DataType.Text)]
+        public string UserName                 { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [DateRangeBetweenYear2000AndNow]
+        public DateTime DateIncurred           { get; set; }
+
+        [DataType(DataType.Text)]
+        public string Description              { get; set; }
+
+        [ForeignKey("DebitId")]
+        public virtual Money Debit             { get; set; }
+
+        [ForeignKey("CreditId")]
+        public virtual Money Credit            { get; set; }
+
+        [Required]
+        [StringLength(16)]
+        [DataType(DataType.CreditCard)]
+        public string MaskedCardNumber         { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Transaction()
+        {
+
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction(
             int        id,
             Statement  statement,
