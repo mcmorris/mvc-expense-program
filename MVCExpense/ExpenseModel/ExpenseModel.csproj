@@ -63,10 +63,6 @@
     <Compile Include="Migrations\201811211858103_InitialModel.Designer.cs">
       <DependentUpon>201811211858103_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811212129125_AddedAudit.cs" />
-    <Compile Include="Migrations\201811212129125_AddedAudit.Designer.cs">
-      <DependentUpon>201811212129125_AddedAudit.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AuditAll.cs" />
     <Compile Include="Model\Account.cs" />
@@ -104,9 +100,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811211858103_InitialModel.resx">
       <DependentUpon>201811211858103_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811212129125_AddedAudit.resx">
-      <DependentUpon>201811212129125_AddedAudit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

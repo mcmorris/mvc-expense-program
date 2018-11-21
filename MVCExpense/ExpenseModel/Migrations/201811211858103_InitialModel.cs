@@ -181,8 +181,8 @@ namespace ExpenseModel.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ExchangeRateId = c.Int(nullable: false),
                         IncurredOn = c.DateTime(nullable: false),
-                        ExternalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        InternalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        ExternalAmount = c.Decimal(nullable: false, precision: 18, scale: 4),
+                        InternalAmount = c.Decimal(nullable: false, precision: 18, scale: 4),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ExchangeRate", t => t.ExchangeRateId, cascadeDelete: true)
@@ -197,7 +197,7 @@ namespace ExpenseModel.Migrations
                         CurrencyFromId = c.String(maxLength: 3),
                         CurrencyToId = c.String(maxLength: 3),
                         Effective = c.DateTime(nullable: false),
-                        ConversionRate = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        ConversionRate = c.Decimal(nullable: false, precision: 18, scale: 4),
                         Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
