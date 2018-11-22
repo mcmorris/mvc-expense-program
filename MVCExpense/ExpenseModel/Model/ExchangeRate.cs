@@ -46,13 +46,7 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExchangeRate(
-            int             id,
-            DateTime        effective,
-            decimal         conversionRate,
-            ISO4217Currency currencyFrom,
-            ISO4217Currency currencyTo,
-            bool            active)
+        public ExchangeRate(int id, DateTime effective, decimal conversionRate, ISO4217Currency currencyFrom, ISO4217Currency currencyTo, bool active=true)
         {
             this.Id = id;
             this.Effective = effective;

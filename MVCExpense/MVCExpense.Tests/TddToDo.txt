@@ -1,0 +1,18 @@
+﻿Complete Account tests
+Complete Attachment tests
+Complete Bank Import tests
+Complete File tests
+Complete Invalid Transaction tests
+Complete Money tests
+Complete Statement tests
+Complete Transaction tests
+Complete User tests
+
+Parser needs to parse a string line in CSV format into an instance of Transaction if valid
+Parser needs to parse a string line in CSV format into an instance of InvalidTransaction if not valid
+
+Action routes need to be defined for new actions
+Controllers need to be defined for all Model classes
+
+Razor Pages need to be created
+

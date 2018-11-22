@@ -44,6 +44,19 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public File(int id, User uploader, string fileName, string filePath, string contentType, string description, int fileSize)
+        {
+            this.Id          = id;
+            this.Uploader    = uploader;
+            this.UserId      = this.Uploader.Id;
+            this.FileName    = fileName;
+            this.FilePath    = filePath;
+            this.ContentType = contentType;
+            this.Description = description;
+            this.FileSize    = fileSize;
+        }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public File(
             int       id,
             User      uploader,

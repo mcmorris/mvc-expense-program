@@ -48,6 +48,17 @@
             this.Transactions = new HashSet<Transaction>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Account(User user, string maskedCardNumber, DateTime expiry)
+        {
+            this.User             = user;
+            this.UserId           = user?.Id;
+            this.MaskedCardNumber = maskedCardNumber;
+            this.Expiry           = expiry;
+            this.Transactions     = new HashSet<Transaction>();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account(User user, string maskedCardNumber, DateTime expiry, ICollection<Transaction> transactions, DateTime created, string createdBy, DateTime? modified, string modifiedBy, DateTime? inactiveSince, bool active)
             : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
         {

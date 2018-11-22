@@ -1,9 +1,5 @@
 ﻿namespace MVCExpense.Parser
 {
-    using System.Collections.Generic;
-
-    using ExpenseModel;
-
     using Microsoft.VisualBasic.FileIO;
 
     public class CSVParser : Parser

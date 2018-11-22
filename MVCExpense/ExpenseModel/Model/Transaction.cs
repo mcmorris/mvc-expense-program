@@ -63,6 +63,18 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Transaction(int id, string userName, DateTime dateIncurred, string description, Money debit, Money credit, string maskedCCNumber)
+        {
+            this.Id               = id;
+            this.UserName         = userName;
+            this.DateIncurred     = dateIncurred;
+            this.Description      = description;
+            this.Debit            = debit;
+            this.Credit           = credit;
+            this.MaskedCardNumber = maskedCCNumber;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction(
             int        id,
             Statement  statement,

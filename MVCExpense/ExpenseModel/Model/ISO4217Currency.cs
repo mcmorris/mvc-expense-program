@@ -35,6 +35,15 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ISO4217Currency(string alphabeticCode, int exponent, string name, DateTime? withdrawalDate)
+        {
+            this.Id             = alphabeticCode;
+            this.Exponent       = exponent;
+            this.Name           = name;
+            this.WithdrawalDate = withdrawalDate;
+        }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ISO4217Currency(
             string    alphabeticCode,
             int       exponent,

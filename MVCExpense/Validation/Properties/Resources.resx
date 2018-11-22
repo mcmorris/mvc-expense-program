@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CCMustBeMasked" xml:space="preserve">
+    <value>All credit cards entered into the system must have the middle eight digits asterixed out.</value>
+  </data>
+  <data name="InvalidCCLength" xml:space="preserve">
+    <value>Credit card numbers must be exactly 16 digits long</value>
+  </data>
+  <data name="InvalidCCNumber" xml:space="preserve">
+    <value>Credit card numbers must be in the format ####********####</value>
+  </data>
   <data name="InvalidDateAboveMaximum" xml:space="preserve">
-    <value>Dates cannot take place after the present.</value>
+    <value>Dates cannot take place after the present</value>
   </data>
   <data name="InvalidDateBelowMinimum" xml:space="preserve">
-    <value>Dates are restricted to a minimum value of 1990/01/01.</value>
+    <value>Dates are restricted to a minimum value of 1990/01/01</value>
   </data>
   <data name="InvalidDateFormat" xml:space="preserve">
-    <value>The date value provided is invalid.</value>
+    <value>The date value provided is invalid</value>
   </data>
 </root>

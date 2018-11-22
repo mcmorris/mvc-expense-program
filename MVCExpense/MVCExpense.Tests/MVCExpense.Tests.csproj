@@ -100,6 +100,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mockup\MockUpCurrencyListing.cs" />
+    <Compile Include="Models\UserTest.cs" />
+    <Compile Include="Models\TransactionTest.cs" />
+    <Compile Include="Models\StatementTest.cs" />
+    <Compile Include="Models\MoneyTest.cs" />
+    <Compile Include="Models\InvalidTransactionTest.cs" />
+    <Compile Include="Models\FileTest.cs" />
+    <Compile Include="Models\BankImportTest.cs" />
+    <Compile Include="Models\AttachmentTest.cs" />
+    <Compile Include="Models\AccountTest.cs" />
     <Compile Include="Models\ExchangeRateTest.cs" />
     <Compile Include="Models\ISO4217CurrencyFormattingTest.cs" />
     <Compile Include="Models\TestLookupValidCurrency.cs" />
@@ -117,9 +126,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Validators\ExtensionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="TddToDo.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MVCExpenseTestsKey.snk" />

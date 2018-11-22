@@ -62,6 +62,16 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Statement(int id, DateTime month, StatusTypes status)
+        {
+            this.Id             = id;
+            this.Month          = month;
+            this.ImportStatus   = new ImportStatus(status);
+            this.ImportStatusId = this.ImportStatus.Id;
+            this.BankImports    = new HashSet<BankImport>();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Statement(
             int                     id,
             DateTime                month,

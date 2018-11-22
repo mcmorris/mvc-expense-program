@@ -4,7 +4,6 @@
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using MVCExpense.Controllers.OER;
     using MVCExpense.Tests.Mockup.TddBankingTests;
 
     [TestClass]

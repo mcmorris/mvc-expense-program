@@ -35,7 +35,7 @@
         }
 
         // Use strong-typed constructor for initialization.
-        public ImportStatus(StatusTypes type, bool active)
+        public ImportStatus(StatusTypes type, bool active=true)
         {
             this.Id   = (int)type;
             this.Name = type.ToString();

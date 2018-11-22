@@ -46,6 +46,18 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Attachment(int id, File file, string issue, StatusTypes status, Statement statementCovered, ICollection<Transaction> transactionsCovered)
+        {
+            this.Id                  = id;
+            this.File                = file;
+            this.FileId              = this.File.Id;
+            this.Issue               = issue;
+            this.Status              = new ImportStatus(status);
+            this.StatementCovered    = statementCovered;
+            this.TransactionsCovered = transactionsCovered;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Attachment(
             int       id,
             File      file,

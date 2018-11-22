@@ -51,6 +51,17 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User(string id, string managerId, string fullName, string department, string job)
+        {
+            this.Id             = id;
+            this.ManagerId      = managerId;
+            this.FullName       = fullName;
+            this.DepartmentName = department;
+            this.JobTitle       = job;
+            this.Accounts       = new HashSet<Account>();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User(
             string               id,
             string               managerId,
