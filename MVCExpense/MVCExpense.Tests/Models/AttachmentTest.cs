@@ -24,12 +24,6 @@
         }
 
         [TestMethod]
-        public void TestAttachmentTrackingUpdates()
-        {
-
-        }
-
-        [TestMethod]
         public void TestAttachmentValidation()
         {
 

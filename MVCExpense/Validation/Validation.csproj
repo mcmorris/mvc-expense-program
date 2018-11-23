@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultDateTimeNowAttribute.cs" />
     <Compile Include="MaskedCCNumberValidationExtension.cs" />
     <Compile Include="DateWithin20YearsAttribute.cs" />
     <Compile Include="DateTimeStringValidationExtension.cs" />

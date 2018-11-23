@@ -7,7 +7,7 @@
     using global::Validation;
 
     [Table("ExchangeRate")]
-    public class ExchangeRate
+    public class ExchangeRate : SelfValidator
     {
         [Key]
         [Required]
@@ -46,15 +46,14 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExchangeRate(int id, DateTime effective, decimal conversionRate, ISO4217Currency currencyFrom, ISO4217Currency currencyTo, bool active=true)
+        public ExchangeRate(DateTime effective, decimal conversionRate, ISO4217Currency currencyFrom, ISO4217Currency currencyTo, bool active=true)
         {
-            this.Id = id;
             this.Effective = effective;
             this.ConversionRate = conversionRate;
             this.CurrencyFrom = currencyFrom;
-            this.CurrencyFromId = this.CurrencyFrom.Id;
+            this.CurrencyFromId = this.CurrencyFrom?.Id;
             this.CurrencyTo = currencyTo;
-            this.CurrencyToId = this.CurrencyTo.Id;
+            this.CurrencyToId = this.CurrencyTo?.Id;
             this.Active = active;
         }
 
@@ -73,6 +72,11 @@
             {
                 return (17 * this.CurrencyFrom.GetHashCode() * this.CurrencyTo.GetHashCode()) ^ this.ConversionRate.GetHashCode();
             }
+        }
+
+        public decimal Convert(decimal externalAmount)
+        {
+            return externalAmount * this.ConversionRate;
         }
     }
 }

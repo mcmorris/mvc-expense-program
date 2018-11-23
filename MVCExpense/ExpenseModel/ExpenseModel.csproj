@@ -67,11 +67,16 @@
     <Compile Include="Migrations\201811212142536_PopulateImportStatus.Designer.cs">
       <DependentUpon>201811212142536_PopulateImportStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811222126535_PopulateCurrencies.cs" />
+    <Compile Include="Migrations\201811222126535_PopulateCurrencies.Designer.cs">
+      <DependentUpon>201811222126535_PopulateCurrencies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AuditAll.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Attachment.cs" />
     <Compile Include="Model\BankImport.cs" />
+    <Compile Include="Model\SelfValidator.cs" />
     <Compile Include="Model\StatusTypes.cs" />
     <Compile Include="Model\ExchangeRate.cs" />
     <Compile Include="Model\File.cs" />
@@ -107,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811212142536_PopulateImportStatus.resx">
       <DependentUpon>201811212142536_PopulateImportStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811222126535_PopulateCurrencies.resx">
+      <DependentUpon>201811222126535_PopulateCurrencies.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using ExpenseModel;
 
@@ -20,7 +21,7 @@
         public void ParseLine(string[] fields)
         {
             fields = this.SanitizeFields(fields);
-            var issueMessage = Transaction.IsValid(fields);
+            var issueMessage = Transaction.WillBeValid(fields, null);
             if (issueMessage == null)
             {
                 // FIXME: Must check for CC -> User mapping validity here
@@ -28,7 +29,7 @@
                 return;
             }
 
-            this.InvalidTransactions.Add(new InvalidTransaction(fields, issueMessage));
+            this.InvalidTransactions.Add(new InvalidTransaction(fields, issueMessage.FirstOrDefault()));
         }
 
         public string[] SanitizeFields(string[] fields)
@@ -40,6 +41,7 @@
         // Format: DateIncurred, Description, [DebitCode, DebitAmount], [DebitCode, DebitAmount], MaskedCardNumber
         protected bool IsLineValid(string[] fields)
         {
+            // TODO: Move FieldsPerLine out to App.Config
             if (fields.Length != Parser.FieldsPerLine) { return false; }
 
             /*

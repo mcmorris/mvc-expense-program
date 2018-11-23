@@ -1,20 +1,23 @@
 ﻿namespace ExpenseModel
 {
     using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using global::Validation;
 
-    public abstract class TrackedEntity
+    public abstract class TrackedEntity : SelfValidator
     {
         [Required]
         [DataType(DataType.DateTime)]
         [DateRangeBetweenYear2000AndNow]
+        [DefaultDateTimeNow]
         public DateTime Created   { get; set; }
 
         [Required]
         [MaxLength(255)]
         [DataType(DataType.Text)]
+        [DefaultValue("System")]
         public string CreatedBy   { get; set; }
 
         [DataType(DataType.DateTime)]

@@ -48,14 +48,6 @@
         }
 
         [TestMethod]
-        public void TestLookupInvalidISO4217CurrencyWithValidEntry()
-        {
-            var currencies = new MockUpCurrencyListing();
-            var currency   = currencies.GetCurrency("XBT", DateTime.Now);
-            Assert.AreEqual(currency.Name,          "Bitcoin");
-        }
-
-        [TestMethod]
         public void TestLookupValidISO4217CurrencyWithNegligibleMinorUnits()
         {
             var currencies = new MockUpCurrencyListing();

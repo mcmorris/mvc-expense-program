@@ -82,9 +82,8 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BankImport(int id, Statement statement, User importedBy, string bank, StatusTypes statusType)
+        public BankImport(Statement statement, User importedBy, string bank, StatusTypes statusType)
         {
-            this.Id                  = id;
             this.Statement           = statement;
             this.StatementId         = this.Statement.Id;
             this.ImportedBy          = importedBy;

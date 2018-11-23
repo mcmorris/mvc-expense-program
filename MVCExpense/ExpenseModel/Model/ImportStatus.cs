@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("ImportStatus")]
-    public class ImportStatus
+    public class ImportStatus : SelfValidator
     {
         [Key]
         [Required]

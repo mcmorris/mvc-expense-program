@@ -13,11 +13,12 @@
         private readonly IStockExchangeUpdater stockUpdater;
         private readonly ISO4217Currency       internalCurrency;
 
-        public StockExchange(IStockExchangeUpdater updater, string internalCurrencyCode)
+        public StockExchange(IStockExchangeUpdater updater, ISO4217Currency internalCurrency)
+            : base(internalCurrency)
         {
             this.exchangeRates = new List<ExchangeRate>();
             this.stockUpdater  = updater;
-            this.internalCurrency = this.GetCurrency(internalCurrencyCode, DateTime.Now);
+            this.internalCurrency = internalCurrency;
         }
 
         public void AddExchangeRate(ExchangeRate newRate)
@@ -28,13 +29,12 @@
 
         public ExchangeRate GetExchangeRate(string currencyFrom)
         {
-            return this.exchangeRates.FirstOrDefault(n => n.CurrencyFrom?.Id == currencyFrom);
+            return this.exchangeRates.LastOrDefault(n => n.CurrencyFrom?.Id == currencyFrom);
         }
 
         public ExchangeRate ExchangeRate(string currencyFrom, decimal rate)
         {
             return new ExchangeRate(
-                this.GetHashCode(),
                 DateTime.Now,
                 rate,
                 this.GetCurrency(currencyFrom, DateTime.Now),

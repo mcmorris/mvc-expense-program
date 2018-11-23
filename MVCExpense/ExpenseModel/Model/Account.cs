@@ -49,12 +49,12 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Account(User user, string maskedCardNumber, DateTime expiry)
+        public Account(User user, string maskedCardNumber, int expiryYear, int expiryMonth)
         {
             this.User             = user;
             this.UserId           = user?.Id;
             this.MaskedCardNumber = maskedCardNumber;
-            this.Expiry           = expiry;
+            this.Expiry           = new DateTime(expiryYear, expiryMonth, 1);
             this.Transactions     = new HashSet<Transaction>();
         }
 

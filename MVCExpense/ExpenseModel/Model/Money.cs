@@ -7,7 +7,7 @@
     using global::Validation;
 
     [Table("Money")]
-    public class Money
+    public class Money : SelfValidator
     {
         [Key]
         [Required]
@@ -41,13 +41,11 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Money(int id, 
-                     ExchangeRate exchangeRate, 
+        public Money(ExchangeRate exchangeRate, 
                      DateTime incurredOn, 
                      decimal externalAmount, 
                      decimal internalAmount)
         {
-            this.Id = id;
             this.ExchangeRate = exchangeRate;
             this.ExchangeRateId = this.ExchangeRate.Id;
             this.IncurredOn = incurredOn;

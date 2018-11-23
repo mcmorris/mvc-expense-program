@@ -12,12 +12,6 @@
         }
 
         [TestMethod]
-        public void TestUserTrackingUpdates()
-        {
-
-        }
-
-        [TestMethod]
         public void TestUserValidation()
         {
 

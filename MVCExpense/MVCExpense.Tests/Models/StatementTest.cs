@@ -24,12 +24,6 @@
         }
 
         [TestMethod]
-        public void TestStatementTrackingUpdates()
-        {
-
-        }
-
-        [TestMethod]
         public void TestStatementValidation()
         {
 

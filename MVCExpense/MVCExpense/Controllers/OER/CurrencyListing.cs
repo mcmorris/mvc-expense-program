@@ -11,13 +11,15 @@
     {
         protected IList<ISO4217Currency> Currencies;
 
-        public CurrencyListing()
+        public CurrencyListing(ISO4217Currency internalRate)
         {
             this.Currencies = new List<ISO4217Currency>();
+            this.AddCurrency(internalRate);
         }
 
         public void AddCurrency(ISO4217Currency newRate)
         {
+            if (newRate == null) { throw new ArgumentNullException(nameof(newRate)); }
             if (this.Currencies.Contains(newRate)) { return; }
             this.Currencies.Add(newRate);
         }

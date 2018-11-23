@@ -1,13 +1,16 @@
 ﻿namespace ExpenseModel
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using ExpenseModel.Validation;
 
     using global::Validation;
 
     [Table("Transaction")]
-    public class Transaction
+    public class Transaction : SelfValidator
     {
         [Key]
         [Required]
@@ -63,14 +66,13 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Transaction(int id, string userName, DateTime dateIncurred, string description, Money debit, Money credit, string maskedCCNumber)
+        public Transaction(string userName, DateTime dateIncurred, string description, ExchangeRate debitExchangeRate, decimal externalDebitAmount, ExchangeRate creditExchangeRate, decimal externalCreditAmount, string maskedCCNumber)
         {
-            this.Id               = id;
             this.UserName         = userName;
             this.DateIncurred     = dateIncurred;
             this.Description      = description;
-            this.Debit            = debit;
-            this.Credit           = credit;
+            this.Debit            = new Money(debitExchangeRate, this.DateIncurred, externalDebitAmount, debitExchangeRate.Convert(externalDebitAmount));
+            this.Credit           = new Money(creditExchangeRate, this.DateIncurred, externalCreditAmount, creditExchangeRate.Convert(externalCreditAmount));
             this.MaskedCardNumber = maskedCCNumber;
         }
 
@@ -104,10 +106,24 @@
             // TODO: 
         }
 
-        public static string IsValid(string[] inputFields)
+        // Format: DateIncurred, Description, [DebitCode, DebitAmount], [DebitCode, DebitAmount], MaskedCardNumber
+        public static IEnumerable<ValidationResult> WillBeValid(string[] inputFields, string validUserName)
         {
+            var dateIssue = inputFields[0].IsValidOldDateTime();
+            if (string.IsNullOrEmpty(dateIssue) == false) { }
+
+            var transaction = new Transaction();
+            /*{
+                UserName = validUserName,
+                DateIncurred = inputFields[0],
+                Description = inputFields[1],
+                Debit = new Money(debitRate, inputFields[0], inputFields[3], debitRate.Convert(externalDebitAmount)),
+                Credit = new Money(creditRate, inputFields[0], inputFields[5], creditRate.Convert(externalCreditAmount)),
+                MaskedCardNumber = inputFields[6]
+            };*/
+
             // TODO:
-            return null;
+            return transaction.Validate(null);
         }
     }
 }

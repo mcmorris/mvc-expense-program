@@ -8,6 +8,8 @@ Complete Statement tests
 Complete Transaction tests
 Complete User tests
 
+Mockup for Currency importing in tests
+
 Parser needs to parse a string line in CSV format into an instance of Transaction if valid
 Parser needs to parse a string line in CSV format into an instance of InvalidTransaction if not valid
 

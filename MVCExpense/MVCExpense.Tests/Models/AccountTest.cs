@@ -15,21 +15,16 @@
         public void TestAccountCalculatedFields()
         {
             var user = new User("ddea", null, "Doug Dea", "Management", null);
-            var account = new Account(user, "4500********1232", new DateTime(2021, 8, 15));
+            var account = new Account(user, "4500********1232", 2021, 8);
             var usd = new ISO4217Currency("USD", 2, "United States Dollars", null);
 
-            var exchangeRate = new ExchangeRate(100, DateTime.Now, 1.0M, usd, usd);
+            var exchangeRate = new ExchangeRate(DateTime.Now, 1.0M, usd, usd);
+
             account.Transactions = new List<Transaction>
             {
-                new Transaction(101, user.Id, DateTime.Now,
-                    "Test Description", new Money(100, exchangeRate, DateTime.Now, 100.00M, 100.00M),
-                    new Money(0, exchangeRate, DateTime.Now, 0M, 0M), account.MaskedCardNumber),
-                new Transaction(101, user.Id, DateTime.Now,
-                    "Test Description", new Money(0, exchangeRate, DateTime.Now, 0M, 0M), new Money(101, exchangeRate, DateTime.Now, 150.00M, 150.00M),
-                    account.MaskedCardNumber),
-                new Transaction(102, user.Id, DateTime.Now,
-                    "Test Description", new Money(0, exchangeRate, DateTime.Now, 0M, 0M), new Money(102, exchangeRate, DateTime.Now, 100.00M, 100.00M),
-                    account.MaskedCardNumber),
+                new Transaction(user.Id, DateTime.Now, "Test Description A", exchangeRate, 100M, exchangeRate, 0M, account.MaskedCardNumber),
+                new Transaction(user.Id, DateTime.Now, "Test Description B", exchangeRate, 0M, exchangeRate, 150M, account.MaskedCardNumber),
+                new Transaction(user.Id, DateTime.Now, "Test Description C", exchangeRate, 0M, exchangeRate, 100M, account.MaskedCardNumber),
             };
 
             user.Accounts.Add(account);
@@ -41,21 +36,22 @@
         }
 
         [TestMethod]
-        public void TestAccountTrackingUpdates()
-        {
-
-        }
-
-        [TestMethod]
+        // CC Validation is tested in ExtensionTests.cs
         public void TestAccountValidation()
         {
+            var user = new User("ddea", null, "Doug Dea", "Management", null);
 
-        }
+            // Expiry year and month are gibberish
+            var testAccountA = new Account(user, "4500********3198", 1, 1);
+            Assert.AreEqual(testAccountA.IsValid, false);
 
-        [TestMethod]
-        public void TestCCValidationWithMasking()
-        {
+            // Expiry user is invalid
+            var testAccountB = new Account(null, "4500********3198", 2021, 8);
+            Assert.AreEqual(testAccountB.IsValid, false);
 
+            // Account is valid
+            var testAccountC = new Account(user, "4500********3198", 2021, 8);
+            Assert.AreEqual(testAccountC.IsValid, true);
         }
     }
 }

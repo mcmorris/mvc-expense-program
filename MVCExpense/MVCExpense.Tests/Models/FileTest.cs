@@ -18,12 +18,6 @@
         }
 
         [TestMethod]
-        public void TestFileTrackingUpdates()
-        {
-
-        }
-
-        [TestMethod]
         public void TestFileValidation()
         {
 

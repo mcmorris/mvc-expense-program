@@ -11,7 +11,7 @@
 
         public class MockUpCurrencyListing : CurrencyListing
         {
-            public MockUpCurrencyListing() : base()
+            public MockUpCurrencyListing() : base(new ISO4217Currency("USD", 2, "United States Dollar", null, DateTime.Now, "TestAccount", null, null, null, true))
             {
                 this.Currencies = new List<ISO4217Currency>
                 {
@@ -31,7 +31,7 @@
                     new ISO4217Currency("INR", 2, "Indian Rupee", null, DateTime.Now, "TestAccount", null, null, null, true),
                     new ISO4217Currency("TVD", 2, "Tuvalu Dollar", null, DateTime.Now, "TestAccount", null, null, null, true),
                     new ISO4217Currency("TWD", 2, "New Taiwan Dollar", null, DateTime.Now, "TestAccount", null, null, null, true),
-                    new ISO4217Currency("USD", 2, "United States Dollar", null, DateTime.Now, "TestAccount", null, null, null, true),
+                    //new ISO4217Currency("USD", 2, "United States Dollar", null, DateTime.Now, "TestAccount", null, null, null, true),
                     new ISO4217Currency("VND", 0, "Vietnamese Dồng", null, DateTime.Now, "TestAccount", null, null, null, true),
                     new ISO4217Currency("XBT", 8, "Bitcoin", null, DateTime.Now, "TestAccount", null, null, null, true),
                     new ISO4217Currency("XXX", 0, "No ISO4217Currency", null, DateTime.Now, "TestAccount", null, null, null, true),

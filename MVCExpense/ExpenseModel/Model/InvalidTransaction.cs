@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("InvalidTransaction")]
-    public class InvalidTransaction
+    public class InvalidTransaction : SelfValidator
     {
         [Key]
         [Required]
@@ -63,7 +63,6 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InvalidTransaction(
-            int        id,
             BankImport bankImport,
             string     userName,
             string     dateIncurred,
@@ -72,11 +71,10 @@
             string     debitValue,
             string     creditCurrencyCode,
             string     creditValue,
-            string     issue,
+            ValidationResult issue,
             string     maskedCardNumber,
             string     cardExpiry)
         {
-            this.Id = id;
             this.BankImport = bankImport;
             this.BankImportId = this.BankImport.Id;
             this.UserName = userName;
@@ -86,12 +84,12 @@
             this.DebitValue = debitValue;
             this.CreditCurrencyCode = creditCurrencyCode;
             this.CreditValue = creditValue;
-            this.Issue = issue;
+            this.Issue = issue.ErrorMessage;
             this.MaskedCardNumber = maskedCardNumber;
             this.CardExpiry = cardExpiry;
         }
 
-        public InvalidTransaction(string[] parsedAndSanitizedInput, string parsingIssue)
+        public InvalidTransaction(string[] parsedAndSanitizedInput, ValidationResult parsingIssue)
         {
             // TODO: 
         }
