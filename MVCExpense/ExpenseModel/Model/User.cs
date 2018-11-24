@@ -7,27 +7,21 @@
     using System.Linq;
 
     [Table("User")]
-    public class User : TrackedEntity
+    public class User : TrackedSelfValidatorEntity
     {
-        [Key]
-        [Required]
-        [MaxLength(255)]
+        [Key, Required, MaxLength(255)]
         public string Id             { get; set; }
 
         [MaxLength(255)]
         public string ManagerId      { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        [DataType(DataType.Text)]
+        [Required, MaxLength(255), DataType(DataType.Text)]
         public string FullName       { get; set; }
 
-        [MaxLength(255)]
-        [DataType(DataType.Text)]
+        [MaxLength(255), DataType(DataType.Text)]
         public string DepartmentName { get; set; }
 
-        [MaxLength(255)]
-        [DataType(DataType.Text)]
+        [MaxLength(255), DataType(DataType.Text)]
         public string JobTitle       { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -69,13 +63,9 @@
             string               department,
             string               job,
             ICollection<Account> accounts,
-            DateTime             created,
-            string               createdBy,
-            DateTime?            modified,
-            string               modifiedBy,
-            DateTime?            inactiveSince,
-            bool                 active)
-            : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
+            ICollection<TrackedChange> changes,
+            bool                       active)
+            : base(changes, active)
         {
             this.Id = id;
             this.ManagerId = managerId;

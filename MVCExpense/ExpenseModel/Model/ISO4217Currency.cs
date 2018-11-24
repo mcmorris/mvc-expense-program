@@ -1,31 +1,25 @@
 ﻿namespace ExpenseModel
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using global::Validation;
 
     [Table("ISO4217Currency")]
-    public class ISO4217Currency : TrackedEntity
+    public class ISO4217Currency : TrackedSelfValidatorEntity
     {
-        [Key]
-        [Required]
-        [MaxLength(3)]
+        [Key, Required, MaxLength(3)]
         public string        Id             { get; set; }
 
-        [Required]
-        [Range(0, 4)]
+        [Required, Range(0, 4)]
         public int           Exponent       { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        [DataType(DataType.Text)]
-        [Index("IDX_CurrencyName")]
+        [Required, MaxLength(255), DataType(DataType.Text), Index("IDX_CurrencyName")]
         public string        Name           { get; set; }
 
-        [DataType(DataType.DateTime)]
-        [DateRangeBetweenYear2000AndNow]
+        [DataType(DataType.DateTime), DateRangeBetweenYear2000AndNow]
         public DateTime?     WithdrawalDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -49,13 +43,9 @@
             int       exponent,
             string    name,
             DateTime? withdrawalDate,
-            DateTime  created,
-            string    createdBy,
-            DateTime? modified,
-            string    modifiedBy,
-            DateTime? inactiveSince,
+            ICollection<TrackedChange> changes,
             bool      active)
-            : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
+            : base(changes, active)
         {
             this.Id = alphabeticCode;
             this.Exponent = exponent;

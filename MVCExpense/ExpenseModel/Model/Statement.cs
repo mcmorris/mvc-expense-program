@@ -9,18 +9,14 @@
     using global::Validation;
 
     [Table("Statement")]
-    public class Statement : TrackedEntity
+    public class Statement : TrackedSelfValidatorEntity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int          Id           { get; set; }
 
         public int? ImportStatusId        { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
-        [DateRangeBetweenYear2000AndNow]
+        [Required, DataType(DataType.Date), DateRangeBetweenYear2000AndNow]
         public DateTime     Month        { get; set; }
 
         [ForeignKey("ImportStatusId")]
@@ -59,6 +55,7 @@
         public Statement()
         {
             this.BankImports = new HashSet<BankImport>();
+            this.ImportStatus = new ImportStatus(StatusTypes.Pending);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -76,13 +73,9 @@
             DateTime                month,
             ImportStatus            importStatus,
             ICollection<BankImport> bankImports,
-            DateTime                created,
-            string                  createdBy,
-            DateTime?               modified,
-            string                  modifiedBy,
-            DateTime?               inactiveSince,
-            bool                    active)
-            : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
+            ICollection<TrackedChange> changes,
+            bool active)
+            : base(changes, active)
         {
             this.Id = id;
             this.Month = month;

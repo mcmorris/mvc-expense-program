@@ -10,11 +10,14 @@
     public class CurrencyListing : ICurrencyListing
     {
         protected IList<ISO4217Currency> Currencies;
+        
+        public ISO4217Currency InternalCurrency { get; }
 
-        public CurrencyListing(ISO4217Currency internalRate)
+        public CurrencyListing(ISO4217Currency internalCurrency)
         {
             this.Currencies = new List<ISO4217Currency>();
-            this.AddCurrency(internalRate);
+            this.InternalCurrency = internalCurrency;
+            this.AddCurrency(this.InternalCurrency);
         }
 
         public void AddCurrency(ISO4217Currency newRate)

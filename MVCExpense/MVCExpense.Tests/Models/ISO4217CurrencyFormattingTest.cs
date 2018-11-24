@@ -5,6 +5,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using MVCExpense.Controllers.OER;
+    using MVCExpense.Tests.Mockup.TddBankingTests;
 
     [TestClass]
     public class ISO4217CurrencyFormattingTest
@@ -23,7 +24,7 @@
         [TestMethod]
         public void TestCurrencyCultureFormatting()
         {
-            var stockExchange = new StockExchange(new StockExchangeUpdater(), new ISO4217Currency("USD", 2, "Dollar", null));
+            var stockExchange = new StockExchange(new StockExchangeUpdater(), new MockUpCurrencyListing());
             /*var bank          = new Bank(stockExchange, new MockUpCurrencyListing(), "USD");
             Assert.AreEqual(bank.Dollar(100M).ToString(), "$100.00");
             Assert.AreEqual(bank.Pound(100M).ToString(),  "£100.00");

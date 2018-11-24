@@ -1,5 +1,6 @@
 namespace ExpenseModel
 {
+    using System;
     using System.Data.Entity;
 
     public class ExpensesModel : DbContext
@@ -22,13 +23,31 @@ namespace ExpenseModel
         public ExpensesModel()
             : base("name=ExpensesModel")
         {
+
+        }
+
+        public override int SaveChanges()
+        {
+            foreach (var item in this.ChangeTracker.Entries())
+            {
+                if (!(item.Entity is TrackedSelfValidatorEntity modelBase)) { continue; }
+
+                switch (item.State)
+                {
+                    case EntityState.Added:
+                        modelBase.TrackChange(DateTime.UtcNow, "TODO: THIS USER", ChangeTrackingType.Created);
+                        // TODO: modelBase.CreatedBy = GetUser();
+                        break;
+                    case EntityState.Modified:
+                        modelBase.TrackChange(DateTime.UtcNow, "TODO: THIS USER", ChangeTrackingType.Modified);
+                        // TODO: modelBase.ModifiedBy = GetUser();
+                        // TODO: If modelBase.Active was true and is now false: modelBase.InactiveSince = DateTime.UtcNow;                        
+                        break;
+                }
+            }
+
+            return base.SaveChanges();
         }
 
     }
-
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }

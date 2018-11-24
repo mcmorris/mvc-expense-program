@@ -32,5 +32,12 @@
             if (importStatus == null) { return this.HttpNotFound(); }
             return this.View(importStatus);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(ImportStatus status)
+        {
+            return null;
+        }
     }
 }

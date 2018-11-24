@@ -1,5 +1,4 @@
-﻿Complete Account tests
-Complete Attachment tests
+﻿Complete Attachment tests
 Complete Bank Import tests
 Complete File tests
 Complete Invalid Transaction tests

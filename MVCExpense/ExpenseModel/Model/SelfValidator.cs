@@ -4,10 +4,10 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
-    public class SelfValidator : IValidatableObject
+    public class SelfValidator
     {
-        public bool IsValid => this.Validate().All(v => v == ValidationResult.Success);
-
+        public bool IsValid => this.Validate().Any() == false;
+        
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext = null)
         {
             return this.TryValidate(this, validationContext);

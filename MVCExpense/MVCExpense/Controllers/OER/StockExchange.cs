@@ -7,18 +7,19 @@
     using ExpenseModel;
 
     // TODO: Convert to controller
-    public class StockExchange : CurrencyListing, IStockExchange
+    public class StockExchange : IStockExchange
     {
         private          IList<ExchangeRate>   exchangeRates;
+        private          ICurrencyListing       currencies;
         private readonly IStockExchangeUpdater stockUpdater;
         private readonly ISO4217Currency       internalCurrency;
 
-        public StockExchange(IStockExchangeUpdater updater, ISO4217Currency internalCurrency)
-            : base(internalCurrency)
+        public StockExchange(IStockExchangeUpdater updater, ICurrencyListing currencyListing)
         {
             this.exchangeRates = new List<ExchangeRate>();
             this.stockUpdater  = updater;
-            this.internalCurrency = internalCurrency;
+            this.internalCurrency = currencyListing.InternalCurrency;
+            this.currencies = currencyListing;
         }
 
         public void AddExchangeRate(ExchangeRate newRate)
@@ -37,9 +38,8 @@
             return new ExchangeRate(
                 DateTime.Now,
                 rate,
-                this.GetCurrency(currencyFrom, DateTime.Now),
-                this.internalCurrency,
-                true
+                this.currencies.GetCurrency(currencyFrom, DateTime.Now),
+                this.internalCurrency
             );
         }
 

@@ -4,4 +4,9 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+@Html.ValidationSummary()
+
 <p>Use this area to provide additional information.</p>
+
+@Html.AntiForgeryToken()
+<button type="Submit" text="Save" />

@@ -7,11 +7,9 @@
     using System.Linq;
 
     [Table("BankImport")]
-    public class BankImport : TrackedEntity
+    public class BankImport : TrackedSelfValidatorEntity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int               Id          { get; set; }
 
         [Index("IDX_BankImportStatementId")]
@@ -20,8 +18,7 @@
         [Required]
         public int               FileId      { get; set; }
 
-        [Required]
-        [MaxLength(255)]
+        [Required, MaxLength(255)]
         public string            UserId      { get; set; }
 
         [Required]
@@ -105,13 +102,9 @@
             ImportStatus             importStatus,
             ICollection<Transaction> transactions,
             ICollection<InvalidTransaction> invalidTransactions,
-            DateTime                 created,
-            string                   createdBy,
-            DateTime?                modified,
-            string                   modifiedBy,
-            DateTime?                inactiveSince,
-            bool                     active)
-            : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
+            ICollection<TrackedChange> changes,
+            bool                       active)
+            : base(changes, active)
         {
             this.Id = id;
             this.Statement = statement;

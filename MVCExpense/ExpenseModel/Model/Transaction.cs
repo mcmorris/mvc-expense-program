@@ -12,17 +12,13 @@
     [Table("Transaction")]
     public class Transaction : SelfValidator
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id                          { get; set; }
 
-        [Required]
-        [Index("IDX_TransactionStatementId")]
+        [Required, Index("IDX_TransactionStatementId")]
         public int StatementId                 { get; set; }
 
-        [Required]
-        [Index("IDX_TransactionBankImportId")]
+        [Required, Index("IDX_TransactionBankImportId")]
         public int BankImportId                { get; set; }
 
         public int? DebitId                     { get; set; }
@@ -35,14 +31,10 @@
         [ForeignKey("BankImportId")]
         public virtual BankImport BankImport   { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        [DataType(DataType.Text)]
+        [Required, MaxLength(255), DataType(DataType.Text)]
         public string UserName                 { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        [DateRangeBetweenYear2000AndNow]
+        [Required, DataType(DataType.DateTime), DateRangeBetweenYear2000AndNow]
         public DateTime DateIncurred           { get; set; }
 
         [DataType(DataType.Text)]
@@ -54,9 +46,7 @@
         [ForeignKey("CreditId")]
         public virtual Money Credit            { get; set; }
 
-        [Required]
-        [StringLength(16)]
-        [DataType(DataType.CreditCard)]
+        [Required, StringLength(16), DataType(DataType.CreditCard)]
         public string MaskedCardNumber         { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

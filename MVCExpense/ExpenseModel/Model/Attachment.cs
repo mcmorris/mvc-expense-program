@@ -6,19 +6,15 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Attachment")]
-    public class Attachment : TrackedEntity
+    public class Attachment : TrackedSelfValidatorEntity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int          Id                 { get; set; }
 
-        [Required]
-        [Index("IDX_AttachmentFileId")]
+        [Required, Index("IDX_AttachmentFileId")]
         public int          FileId             { get; set; }
 
-        [Required]
-        [Index("IDX_AttachmentStatementId")]
+        [Required, Index("IDX_AttachmentStatementId")]
         public int          StatementId        { get; set; }
 
         [Required]
@@ -64,13 +60,9 @@
             ImportStatus status,
             Statement statementCovered,
             ICollection<Transaction> transactionsCovered,
-            DateTime  created,
-            string    createdBy,
-            DateTime? modified,
-            string    modifiedBy,
-            DateTime? inactiveSince,
-            bool      active)
-            : base(created, createdBy, modified, modifiedBy, inactiveSince, active)
+            ICollection<TrackedChange> changes,
+            bool                       active)
+            : base(changes, active)
         {
             this.Id = id;
             this.File = file;

@@ -2,14 +2,14 @@ namespace ExpenseModel.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ExpenseModel.ExpensesModel>
+    internal sealed class Configuration : DbMigrationsConfiguration<ExpensesModel>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            this.AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ExpenseModel.ExpensesModel context)
+        protected override void Seed(ExpensesModel context)
         {
             //  This method will be called after migrating to the latest version.
 
