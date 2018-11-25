@@ -7,13 +7,13 @@
 
     public class TrackedChange
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required, DataType(DataType.DateTime)]
+        [Required][DataType(DataType.DateTime)]
         public DateTime OccurredAt   { get; set; }
 
-        [Required, MaxLength(255), DataType(DataType.Text), DefaultValue("System")]
+        [Required][MaxLength(255)][DataType(DataType.Text)][DefaultValue("System")]
         public string ChangedBy   { get; set; }
 
         public ChangeStatus ChangedTo { get; set; }

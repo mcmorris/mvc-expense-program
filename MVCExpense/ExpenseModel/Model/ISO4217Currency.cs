@@ -10,16 +10,16 @@
     [Table("ISO4217Currency")]
     public class ISO4217Currency : TrackedSelfValidatorEntity
     {
-        [Key, Required, MaxLength(3)]
+        [Key][Required][MaxLength(3)]
         public string        Id             { get; set; }
 
-        [Required, Range(0, 4)]
+        [Required][Range(0, 4)]
         public int           Exponent       { get; set; }
 
-        [Required, MaxLength(255), DataType(DataType.Text), Index("IDX_CurrencyName")]
+        [Required][MaxLength(255)][DataType(DataType.Text)][Index("IDX_CurrencyName")]
         public string        Name           { get; set; }
 
-        [DataType(DataType.DateTime), DateRangeBetweenYear2000AndNow]
+        [DataType(DataType.DateTime)][DateRangeBetweenYear2000AndNow]
         public DateTime?     WithdrawalDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

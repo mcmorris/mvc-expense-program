@@ -9,25 +9,25 @@
     [Table("ExchangeRate")]
     public class ExchangeRate : SelfValidator
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int             Id                     { get; set; }
 
-        [MaxLength(3)]
+        [Required][MaxLength(3)]
         public string          CurrencyFromId         { get; set; }
 
-        [MaxLength(3)]
+        [Required][MaxLength(3)]
         public string          CurrencyToId           { get; set; }
 
-        [Required, DataType(DataType.DateTime), DateRangeBetweenYear2000AndNow, Index("IDX_ExchangeRateEffective")]
+        [Required][DataType(DataType.DateTime)][DateRangeBetweenYear2000AndNow][Index("IDX_ExchangeRateEffective")]
         public DateTime        Effective              { get; set; }
 
         [Required]
         public decimal         ConversionRate         { get; set; }
 
-        [ForeignKey("CurrencyFromId"), Index("IDX_ExchangeRateCurrencyFromId")]
+        [Required][ForeignKey("CurrencyFromId")][Index("IDX_ExchangeRateCurrencyFromId")]
         public virtual ISO4217Currency CurrencyFrom   { get; set; }
 
-        [ForeignKey("CurrencyToId")]
+        [Required][ForeignKey("CurrencyToId")]
         public virtual ISO4217Currency CurrencyTo     { get; set; }
 
         [Required]

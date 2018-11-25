@@ -11,12 +11,12 @@
     [Table("Statement")]
     public class Statement : TrackedSelfValidatorEntity
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int          Id           { get; set; }
 
-        public int? ImportStatusId        { get; set; }
+        public int ImportStatusId        { get; set; }
 
-        [Required, DataType(DataType.Date), DateRangeBetweenYear2000AndNow]
+        [Required][DataType(DataType.Date)][DateRangeBetweenYear2000AndNow]
         public DateTime     Month        { get; set; }
 
         [ForeignKey("ImportStatusId")]

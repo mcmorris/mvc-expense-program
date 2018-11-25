@@ -9,19 +9,19 @@
     [Table("User")]
     public class User : TrackedSelfValidatorEntity
     {
-        [Key, Required, MaxLength(255)]
+        [Key][Required][MaxLength(255)]
         public string Id             { get; set; }
 
         [MaxLength(255)]
         public string ManagerId      { get; set; }
 
-        [Required, MaxLength(255), DataType(DataType.Text)]
+        [Required][MaxLength(255)][DataType(DataType.Text)]
         public string FullName       { get; set; }
 
-        [MaxLength(255), DataType(DataType.Text)]
+        [MaxLength(255)][DataType(DataType.Text)]
         public string DepartmentName { get; set; }
 
-        [MaxLength(255), DataType(DataType.Text)]
+        [MaxLength(255)][DataType(DataType.Text)]
         public string JobTitle       { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -6,10 +6,10 @@
     [Table("ImportStatus")]
     public class ImportStatus : SelfValidator
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required, MaxLength(255), DataType(DataType.Text), Index("IDX_ImportStatusName")]
+        [Required][MaxLength(255)][DataType(DataType.Text)][Index("IDX_ImportStatusName")]
         public string Name { get; set; }
 
         [Required]

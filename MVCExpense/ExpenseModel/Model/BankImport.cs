@@ -9,7 +9,7 @@
     [Table("BankImport")]
     public class BankImport : TrackedSelfValidatorEntity
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int               Id          { get; set; }
 
         [Index("IDX_BankImportStatementId")]
@@ -18,25 +18,25 @@
         [Required]
         public int               FileId      { get; set; }
 
-        [Required, MaxLength(255)]
+        [Required][MaxLength(255)]
         public string            UserId      { get; set; }
 
         [Required]
         public int               ImportStatusId { get; set; }
 
-        [ForeignKey("StatementId")]
+        [Required][ForeignKey("StatementId")]
         public virtual Statement Statement   { get; set; }
 
-        [ForeignKey("FileId")]
+        [Required][ForeignKey("FileId")]
         public virtual File      File        { get; set; }
 
-        [ForeignKey("UserId")]
+        [Required][ForeignKey("UserId")]
         public virtual User      ImportedBy  { get; set; }
 
         [MaxLength(255)]
         public string            Bank        { get; set; }
 
-        [ForeignKey("ImportStatusId")]
+        [Required][ForeignKey("ImportStatusId")]
         public virtual ImportStatus ImportStatus { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -90,6 +90,9 @@
             this.ImportStatusId      = this.ImportStatus.Id;
             this.InvalidTransactions = new HashSet<InvalidTransaction>();
             this.Transactions        = new HashSet<Transaction>();
+
+            if (statement != null) { this.StatementId = statement.Id; }
+            if (importedBy != null) { this.UserId     = importedBy.Id; }
         }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -108,16 +111,16 @@
         {
             this.Id = id;
             this.Statement = statement;
-            this.StatementId = this.Statement.Id;
             this.File = file;
-            this.FileId = this.File.Id;
             this.ImportedBy = importedBy;
-            this.UserId = this.ImportedBy.Id;
             this.Bank = bank;
             this.ImportStatus = importStatus;
             this.ImportStatusId = this.ImportStatus.Id;
             this.Transactions = transactions;
             this.InvalidTransactions = invalidTransactions;
+
+            if (statement  != null) { this.StatementId = statement.Id; }
+            if (importedBy != null) { this.UserId      = importedBy.Id; }
         }
     }
 }

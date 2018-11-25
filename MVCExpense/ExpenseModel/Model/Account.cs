@@ -11,16 +11,16 @@
     [Table("Account")]
     public class Account : TrackedSelfValidatorEntity
     {
-        [Required, MaxLength(255), Key, Column(Order = 0)]
+        [Required][MaxLength(255)][Key][Column(Order = 0)]
         public string UserId             { get; set; }
 
-        [Required, StringLength(16), Key, Column(Order = 1)]
+        [Required][StringLength(16)][Key][Column(Order = 1)]
         public string MaskedCardNumber   { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User     User     { get; set; }
 
-        [Required, Index("IDX_CCExpiry"), DataType(DataType.DateTime), DateAfter200011]
+        [Required][Index("IDX_CCExpiry")][DataType(DataType.DateTime)][DateAfter200011]
         public DateTime Expiry           { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
