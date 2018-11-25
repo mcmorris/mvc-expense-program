@@ -11,25 +11,50 @@
         public int          Id                 { get; set; }
 
         [Required][Index("IDX_AttachmentFileId")]
-        public int          FileId             { get; set; }
+        public int?         FileId             { get; set; }
 
         [Required][Index("IDX_AttachmentStatementId")]
-        public int          StatementId        { get; set; }
+        public int?         StatementId        { get; set; }
 
         [Required]
-        public int          StatusId           { get; set; }
-
-        [Required][ForeignKey("FileId")]
-        public virtual File File               { get; set; }
+        public int?         StatusId           { get; set; }
 
         [MaxLength(255)]
         public string       Issue              { get; set; }
 
+        [Required]
+        [ForeignKey("FileId")]
+        public virtual File File
+        {
+            get => this.File;
+            set
+            {
+                this.File = value;
+                this.FileId = value?.Id;
+            }
+        }
+
         [Required][ForeignKey("StatusId")]
-        public virtual     ImportStatus Status { get; set; }
+        public virtual     ImportStatus Status
+        {
+            get => this.Status;
+            set
+            {
+                this.Status = value;
+                this.StatusId = value?.Id;
+            }
+        }
 
         [Required][ForeignKey("StatementId")]
-        public virtual Statement StatementCovered { get; set; }
+        public virtual Statement StatementCovered
+        {
+            get => this.StatementCovered;
+            set
+            {
+                this.StatementCovered = value;
+                this.StatementId = value?.Id;
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> TransactionsCovered { get; set; }
@@ -46,12 +71,8 @@
             this.File                = file;
             this.Issue               = issue;
             this.Status              = new ImportStatus(status);
-            this.StatusId            = this.Status.Id;
             this.StatementCovered    = statementCovered;
             this.TransactionsCovered = transactionsCovered;
-
-            if (file != null) { this.StatementId = file.Id; }
-            if (statementCovered != null) { this.FileId = statementCovered.Id; }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -70,12 +91,8 @@
             this.File = file;
             this.Issue = issue;
             this.Status = status;
-            this.StatusId = this.Status.Id;
             this.StatementCovered = statementCovered;
             this.TransactionsCovered = transactionsCovered;
-
-            if (file             != null) { this.StatementId = file.Id; }
-            if (statementCovered != null) { this.FileId      = statementCovered.Id; }
         }
 
         public void AppendTransaction(Transaction transactionCovered)

@@ -16,20 +16,14 @@
         public int Id                          { get; set; }
 
         [Required][Index("IDX_TransactionStatementId")]
-        public int StatementId                 { get; set; }
+        public int? StatementId                { get; set; }
 
         [Required][Index("IDX_TransactionBankImportId")]
-        public int BankImportId                { get; set; }
+        public int? BankImportId               { get; set; }
 
-        public int? DebitId                     { get; set; }
+        public int? DebitId                    { get; set; }
 
-        public int? CreditId                    { get; set; }
-
-        [ForeignKey("StatementId")]
-        public virtual Statement Statement     { get; set; }
-
-        [ForeignKey("BankImportId")]
-        public virtual BankImport BankImport   { get; set; }
+        public int? CreditId                   { get; set; }
 
         [Required][MaxLength(255)][DataType(DataType.Text)]
         public string UserName                 { get; set; }
@@ -40,14 +34,52 @@
         [DataType(DataType.Text)]
         public string Description              { get; set; }
 
-        [ForeignKey("DebitId")]
-        public virtual Money Debit             { get; set; }
-
-        [ForeignKey("CreditId")]
-        public virtual Money Credit            { get; set; }
-
         [Required][StringLength(16)][DataType(DataType.CreditCard)]
         public string MaskedCardNumber         { get; set; }
+
+        [ForeignKey("StatementId")]
+        public virtual Statement Statement
+        {
+            get => this.Statement;
+            set
+            {
+                this.Statement   = value;
+                this.StatementId = value?.Id;
+            }
+        }
+
+        [ForeignKey("BankImportId")]
+        public virtual BankImport BankImport
+        {
+            get => this.BankImport;
+            set
+            {
+                this.BankImport = value;
+                this.BankImportId = value?.Id;
+            }
+        }
+
+        [ForeignKey("DebitId")]
+        public virtual Money Debit
+        {
+            get => this.Debit;
+            set
+            {
+                this.Debit = value;
+                this.DebitId = value?.Id;
+            }
+        }
+
+        [ForeignKey("CreditId")]
+        public virtual Money Credit
+        {
+            get => this.Credit;
+            set
+            {
+                this.Credit = value;
+                this.CreditId = value?.Id;
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction()
@@ -87,9 +119,6 @@
             this.Debit = debit;
             this.Credit = credit;
             this.MaskedCardNumber = maskedCCNumber;
-
-            if (statement != null) { this.StatementId = statement.Id; }
-            if (bankImport != null) { this.BankImportId = bankImport.Id; }
         }
 
         public Transaction(string[] parsedAndSanitizedInput)

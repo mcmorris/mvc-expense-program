@@ -10,10 +10,7 @@
         public int    Id                 { get; set; }
 
         [Required][Index("IDX_InvalidTransactionBankImportId")]
-        public int    BankImportId       { get; set; }
-
-        [ForeignKey("BankImportId")]
-        public virtual BankImport BankImport     { get; set; }
+        public int?   BankImportId       { get; set; }
 
         [MaxLength(255)][DataType(DataType.Text)]
         public string UserName           { get; set; }
@@ -45,7 +42,18 @@
         [MaxLength(255)][DataType(DataType.DateTime)]
         public string CardExpiry         { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [ForeignKey("BankImportId")]
+        public virtual BankImport BankImport
+        {
+            get => this.BankImport;
+            set
+            {
+                this.BankImport = value;
+                this.BankImportId = value?.Id;
+            }
+        }
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InvalidTransaction()
         {
 
@@ -76,8 +84,6 @@
             this.Issue = issue.ErrorMessage;
             this.MaskedCardNumber = maskedCardNumber;
             this.CardExpiry = cardExpiry;
-
-            if (bankImport != null) { this.BankImportId = bankImport.Id; }
         }
 
         public InvalidTransaction(string[] parsedAndSanitizedInput, ValidationResult parsingIssue)

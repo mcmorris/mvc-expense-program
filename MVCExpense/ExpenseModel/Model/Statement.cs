@@ -14,16 +14,24 @@
         [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int          Id           { get; set; }
 
-        public int ImportStatusId        { get; set; }
+        public int? ImportStatusId       { get; set; }
 
         [Required][DataType(DataType.Date)][DateRangeBetweenYear2000AndNow]
         public DateTime     Month        { get; set; }
 
-        [ForeignKey("ImportStatusId")]
-        public virtual ImportStatus ImportStatus { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankImport> BankImports { get; set; }
+
+        [ForeignKey("ImportStatusId")]
+        public virtual ImportStatus ImportStatus
+        {
+            get => this.ImportStatus;
+            set
+            {
+                this.ImportStatus = value;
+                this.ImportStatusId = value?.Id;
+            }
+        }
 
         #region Calculated fields
         [NotMapped]
@@ -63,7 +71,6 @@
         {
             this.Month          = month;
             this.ImportStatus   = new ImportStatus(status);
-            this.ImportStatusId = this.ImportStatus.Id;
             this.BankImports    = new HashSet<BankImport>();
         }
 
@@ -80,8 +87,20 @@
             this.Id = id;
             this.Month = month;
             this.ImportStatus = importStatus;
-            this.ImportStatusId = this.ImportStatus.Id;
             this.BankImports = bankImports;
+        }
+
+        public void AddBankImport(BankImport newImport)
+        {
+            newImport.Statement = this;
+
+            if (this.BankImports.Contains(newImport)) { return; }
+            this.BankImports.Add(newImport);
+        }
+
+        public void RemoveTransaction(BankImport importToDelete)
+        {
+            this.BankImports.Remove(importToDelete);
         }
     }
 }

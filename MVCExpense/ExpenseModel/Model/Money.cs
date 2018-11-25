@@ -13,10 +13,7 @@
         public int             Id             { get; set; }
 
         [Required]
-        public int             ExchangeRateId { get; set; }
-
-        [Required][ForeignKey("ExchangeRateId")]
-        public virtual ExchangeRate ExchangeRate   { get; set; }
+        public int?            ExchangeRateId { get; set; }
 
         [Required][DataType(DataType.DateTime)][DateRangeBetweenYear2000AndNow]
         public DateTime        IncurredOn     { get; set; }
@@ -26,6 +23,19 @@
 
         [Required][DataType(DataType.Currency)][Index("IDX_MoneyInternalAmount")]
         public decimal         InternalAmount { get; set; }
+
+
+        [Required]
+        [ForeignKey("ExchangeRateId")]
+        public virtual ExchangeRate ExchangeRate
+        {
+            get => this.ExchangeRate;
+            set
+            {
+                this.ExchangeRate = value;
+                this.ExchangeRateId = value?.Id;
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Money()

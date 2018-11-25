@@ -24,14 +24,30 @@
         [Required]
         public decimal         ConversionRate         { get; set; }
 
-        [Required][ForeignKey("CurrencyFromId")][Index("IDX_ExchangeRateCurrencyFromId")]
-        public virtual ISO4217Currency CurrencyFrom   { get; set; }
-
-        [Required][ForeignKey("CurrencyToId")]
-        public virtual ISO4217Currency CurrencyTo     { get; set; }
-
         [Required]
         public bool            Active                 { get; set; }
+
+        [Required][ForeignKey("CurrencyFromId")][Index("IDX_ExchangeRateCurrencyFromId")]
+        public virtual ISO4217Currency CurrencyFrom
+        {
+            get => this.CurrencyFrom;
+            set
+            {
+                this.CurrencyFrom = value;
+                this.CurrencyFromId = value?.Id;
+            }
+        }
+
+        [Required][ForeignKey("CurrencyToId")]
+        public virtual ISO4217Currency CurrencyTo
+        {
+            get => this.CurrencyTo;
+            set
+            {
+                this.CurrencyTo = value;
+                this.CurrencyToId = value?.Id;
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ExchangeRate()
@@ -45,9 +61,7 @@
             this.Effective = effective;
             this.ConversionRate = conversionRate;
             this.CurrencyFrom = currencyFrom;
-            this.CurrencyFromId = this.CurrencyFrom?.Id;
             this.CurrencyTo = currencyTo;
-            this.CurrencyToId = this.CurrencyTo?.Id;
             this.Active = active;
         }
 

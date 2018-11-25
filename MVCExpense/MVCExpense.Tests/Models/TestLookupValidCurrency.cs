@@ -29,7 +29,7 @@
         {
             var currencies  = new MockUpCurrencyListing();
             var oldCurrency = currencies.GetCurrency("ADP", DateTime.Parse("2003-06-01 12:00:00"));
-            Assert.AreEqual(oldCurrency.Name,           "Andorran Peseta");
+            Assert.AreEqual(oldCurrency.Name, "Andorran Peseta");
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@
         {
             var currencies = new MockUpCurrencyListing();
             var currency   = currencies.GetCurrency("VND", DateTime.Now);
-            Assert.AreEqual(currency.Name,          "Vietnamese Dồng");
+            Assert.AreEqual(currency.Name, "Vietnamese Dồng");
         }
     }
 }

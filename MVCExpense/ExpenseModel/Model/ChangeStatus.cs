@@ -6,10 +6,10 @@
     [Table("ChangeStatus")]
     public class ChangeStatus : SelfValidator
     {
-        [Key, Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required, MaxLength(255), DataType(DataType.Text), Index("IDX_ChangeStatusName")]
+        [Required][MaxLength(255)][DataType(DataType.Text)][Index("IDX_ChangeStatusName")]
         public string Name { get; set; }
 
         [Required]

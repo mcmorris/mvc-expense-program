@@ -16,34 +16,69 @@
         public int?               StatementId { get; set; }
 
         [Required]
-        public int               FileId      { get; set; }
+        public int?               FileId      { get; set; }
 
         [Required][MaxLength(255)]
         public string            UserId      { get; set; }
 
         [Required]
-        public int               ImportStatusId { get; set; }
-
-        [Required][ForeignKey("StatementId")]
-        public virtual Statement Statement   { get; set; }
-
-        [Required][ForeignKey("FileId")]
-        public virtual File      File        { get; set; }
-
-        [Required][ForeignKey("UserId")]
-        public virtual User      ImportedBy  { get; set; }
+        public int?              ImportStatusId { get; set; }
 
         [MaxLength(255)]
         public string            Bank        { get; set; }
-
-        [Required][ForeignKey("ImportStatusId")]
-        public virtual ImportStatus ImportStatus { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvalidTransaction> InvalidTransactions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+        [Required]
+        [ForeignKey("StatementId")]
+        public virtual Statement Statement
+        {
+            get => this.Statement;
+            set
+            {
+                this.Statement = value;
+                this.StatementId = value?.Id;
+            }
+        }
+
+        [Required]
+        [ForeignKey("FileId")]
+        public virtual File File
+        {
+            get => this.File;
+            set
+            {
+                this.File = value;
+                this.FileId = value?.Id;
+            }
+        }
+
+        [Required]
+        [ForeignKey("UserId")]
+        public virtual User ImportedBy
+        {
+            get => this.ImportedBy;
+            set
+            {
+                this.ImportedBy = value;
+                this.UserId = value?.Id;
+            }
+        }
+
+        [Required][ForeignKey("ImportStatusId")]
+        public virtual ImportStatus ImportStatus
+        {
+            get => this.ImportStatus;
+            set
+            {
+                this.ImportStatus   = value;
+                this.ImportStatusId = value?.Id;
+            }
+        }
 
         #region Calculated fields
         [NotMapped]
@@ -81,21 +116,16 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BankImport(Statement statement, User importedBy, string bank, StatusTypes statusType)
         {
-            this.Statement           = statement;
-            this.StatementId         = this.Statement.Id;
-            this.ImportedBy          = importedBy;
-            this.UserId              = this.ImportedBy.Id;
             this.Bank                = bank;
-            this.ImportStatus        = new ImportStatus(statusType);
-            this.ImportStatusId      = this.ImportStatus.Id;
             this.InvalidTransactions = new HashSet<InvalidTransaction>();
             this.Transactions        = new HashSet<Transaction>();
 
-            if (statement != null) { this.StatementId = statement.Id; }
-            if (importedBy != null) { this.UserId     = importedBy.Id; }
+            this.ImportedBy   = importedBy;
+            this.ImportStatus = new ImportStatus(statusType);
+            this.Statement    = statement;
         }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BankImport(
             int                      id,
             Statement                statement,
@@ -110,17 +140,27 @@
             : base(changes, active)
         {
             this.Id = id;
-            this.Statement = statement;
             this.File = file;
-            this.ImportedBy = importedBy;
             this.Bank = bank;
+            this.ImportedBy = importedBy;
             this.ImportStatus = importStatus;
-            this.ImportStatusId = this.ImportStatus.Id;
+            this.Statement = statement;
             this.Transactions = transactions;
             this.InvalidTransactions = invalidTransactions;
+        }
 
-            if (statement  != null) { this.StatementId = statement.Id; }
-            if (importedBy != null) { this.UserId      = importedBy.Id; }
+        public void AddTransaction(Transaction newTransaction)
+        {
+            newTransaction.Statement = this.Statement;
+            newTransaction.BankImport = this;
+
+            if (this.Transactions.Contains(newTransaction)) { return; }
+            this.Transactions.Add(newTransaction);
+        }
+
+        public void RemoveTransaction(Transaction transactionToDelete)
+        {
+            this.Transactions.Remove(transactionToDelete);
         }
     }
 }

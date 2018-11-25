@@ -13,9 +13,6 @@
         [MaxLength(255)][Index("IDX_FileUserId")]
         public string UserId       { get; set; }
 
-        [MaxLength(255)][ForeignKey("UserId")]
-        public virtual User Uploader     { get; set; }
-
         [Required][MaxLength(255)][DataType(DataType.Text)]
         public string FileName     { get; set; }
 
@@ -30,6 +27,18 @@
 
         public int    FileSize     { get; set; }
 
+        [MaxLength(255)]
+        [ForeignKey("UserId")]
+        public virtual User Uploader
+        {
+            get => this.Uploader;
+            set
+            {
+                this.Uploader = value;
+                this.UserId = value?.Id;
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public File()
         {
@@ -40,7 +49,6 @@
         public File(User uploader, string fileName, string filePath, string contentType, string description, int fileSize)
         {
             this.Uploader    = uploader;
-            this.UserId      = this.Uploader?.Id;
             this.FileName    = fileName;
             this.FilePath    = filePath;
             this.ContentType = contentType;
@@ -63,7 +71,6 @@
         {
             this.Id = id;
             this.Uploader = uploader;
-            this.UserId = this.Uploader.Id;
             this.FileName = fileName;
             this.FilePath = filePath;
             this.ContentType = contentType;

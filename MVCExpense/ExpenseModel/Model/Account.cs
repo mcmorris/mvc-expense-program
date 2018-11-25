@@ -17,14 +17,22 @@
         [Required][StringLength(16)][Key][Column(Order = 1)]
         public string MaskedCardNumber   { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual User     User     { get; set; }
-
         [Required][Index("IDX_CCExpiry")][DataType(DataType.DateTime)][DateAfter200011]
         public DateTime Expiry           { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User User
+        {
+            get => this.User;
+            set
+            {
+                this.User = value;
+                this.UserId = value?.Id;
+            }
+        }
 
         #region Calculated fields
         [NotMapped]
@@ -47,7 +55,6 @@
         public Account(User user, string maskedCardNumber, int expiryYear, int expiryMonth)
         {
             this.User             = user;
-            this.UserId           = user?.Id;
             this.MaskedCardNumber = maskedCardNumber;
             this.Expiry           = new DateTime(expiryYear, expiryMonth, 1);
             this.Transactions     = new HashSet<Transaction>();
@@ -58,7 +65,6 @@
             : base(changes, active)
         {
             this.User = user;
-            this.UserId = user?.Id;
             this.MaskedCardNumber = maskedCardNumber;
             this.Expiry = expiry;
             this.Transactions = transactions;
