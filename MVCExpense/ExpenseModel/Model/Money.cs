@@ -24,18 +24,21 @@
         [Required][DataType(DataType.Currency)][Index("IDX_MoneyInternalAmount")]
         public decimal         InternalAmount { get; set; }
 
+        #region Foreign Keys
+        private ExchangeRate exchangeRate;
 
         [Required]
         [ForeignKey("ExchangeRateId")]
         public virtual ExchangeRate ExchangeRate
         {
-            get => this.ExchangeRate;
+            get => this.exchangeRate;
             set
             {
-                this.ExchangeRate = value;
+                this.exchangeRate = value;
                 this.ExchangeRateId = value?.Id;
             }
         }
+        #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Money()

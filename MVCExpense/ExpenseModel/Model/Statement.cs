@@ -22,16 +22,20 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankImport> BankImports { get; set; }
 
+        #region Foreign Keys
+        private ImportStatus importStatus;
+
         [ForeignKey("ImportStatusId")]
         public virtual ImportStatus ImportStatus
         {
-            get => this.ImportStatus;
+            get => this.importStatus;
             set
             {
-                this.ImportStatus = value;
+                this.importStatus = value;
                 this.ImportStatusId = value?.Id;
             }
         }
+        #endregion
 
         #region Calculated fields
         [NotMapped]
@@ -98,7 +102,7 @@
             this.BankImports.Add(newImport);
         }
 
-        public void RemoveTransaction(BankImport importToDelete)
+        public void RemoveBankImport(BankImport importToDelete)
         {
             this.BankImports.Remove(importToDelete);
         }

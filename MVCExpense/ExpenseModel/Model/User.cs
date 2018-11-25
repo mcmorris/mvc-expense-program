@@ -74,5 +74,20 @@
             this.JobTitle = job;
             this.Accounts = accounts;
         }
+
+        public void AddAccount()
+        {
+
+        }
+
+        public void AddAccounts()
+        {
+
+        }
+
+        public void RemoveAccount()
+        {
+
+        }
     }
 }

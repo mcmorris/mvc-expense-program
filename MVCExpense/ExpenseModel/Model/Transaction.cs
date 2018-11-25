@@ -37,13 +37,19 @@
         [Required][StringLength(16)][DataType(DataType.CreditCard)]
         public string MaskedCardNumber         { get; set; }
 
+        #region Foreign Keys
+        private Statement statement;
+        private BankImport bankImport;
+        private Money debit;
+        private Money credit;
+
         [ForeignKey("StatementId")]
         public virtual Statement Statement
         {
-            get => this.Statement;
+            get => this.statement;
             set
             {
-                this.Statement   = value;
+                this.statement = value;
                 this.StatementId = value?.Id;
             }
         }
@@ -51,10 +57,10 @@
         [ForeignKey("BankImportId")]
         public virtual BankImport BankImport
         {
-            get => this.BankImport;
+            get => this.bankImport;
             set
             {
-                this.BankImport = value;
+                this.bankImport = value;
                 this.BankImportId = value?.Id;
             }
         }
@@ -62,10 +68,10 @@
         [ForeignKey("DebitId")]
         public virtual Money Debit
         {
-            get => this.Debit;
+            get => this.debit;
             set
             {
-                this.Debit = value;
+                this.debit = value;
                 this.DebitId = value?.Id;
             }
         }
@@ -73,13 +79,14 @@
         [ForeignKey("CreditId")]
         public virtual Money Credit
         {
-            get => this.Credit;
+            get => this.credit;
             set
             {
-                this.Credit = value;
+                this.credit = value;
                 this.CreditId = value?.Id;
             }
         }
+        #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction()

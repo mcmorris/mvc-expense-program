@@ -66,7 +66,7 @@
             var attachmentTransactionF = new Transaction(user.Id, new DateTime(2015, 3, 24), "Uber", exchangeRateA, 30.00M, exchangeRateA, 0.00M, "4500********9975");
 
             var attachment = new Attachment(file, null, StatusTypes.Pending, statement, new List<Transaction> { attachmentTransactionA, attachmentTransactionB, attachmentTransactionC });
-            attachment.AppendTransaction(attachmentTransactionF);
+            attachment.AddTransaction(attachmentTransactionF);
 
             Assert.AreEqual(attachment.TransactionsCovered.Count, 4);
             Assert.AreEqual(attachment.CoversTransaction(attachmentTransactionA), true);

@@ -23,16 +23,20 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
 
+        #region Foreign Keys
+        private User user;
+
         [ForeignKey("UserId")]
         public virtual User User
         {
-            get => this.User;
+            get => this.user;
             set
             {
-                this.User = value;
+                this.user = value;
                 this.UserId = value?.Id;
             }
         }
+        #endregion
 
         #region Calculated fields
         [NotMapped]
@@ -68,6 +72,22 @@
             this.MaskedCardNumber = maskedCardNumber;
             this.Expiry = expiry;
             this.Transactions = transactions;
+        }
+
+        public void AddTransaction(Transaction newTransaction)
+        {
+            newTransaction.UserName = this.UserId;
+            this.Transactions.Add(newTransaction);
+        }
+
+        public void AddTransactions(ICollection<Transaction> newTransactions)
+        {
+            foreach (var newTransaction in newTransactions) { this.AddTransaction(newTransaction); }
+        }
+
+        public void RemoveTransaction(Transaction transactionToDelete)
+        {
+            this.Transactions.Remove(transactionToDelete);
         }
     }
 }

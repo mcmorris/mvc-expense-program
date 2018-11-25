@@ -33,14 +33,20 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
 
+        #region Foreign Keys
+        private Statement statement;
+        private ImportStatus status;
+        private File file;
+        private User user;
+
         [Required]
         [ForeignKey("StatementId")]
         public virtual Statement Statement
         {
-            get => this.Statement;
+            get => this.statement;
             set
             {
-                this.Statement = value;
+                this.statement = value;
                 this.StatementId = value?.Id;
             }
         }
@@ -49,10 +55,10 @@
         [ForeignKey("FileId")]
         public virtual File File
         {
-            get => this.File;
+            get => this.file;
             set
             {
-                this.File = value;
+                this.file = value;
                 this.FileId = value?.Id;
             }
         }
@@ -61,10 +67,10 @@
         [ForeignKey("UserId")]
         public virtual User ImportedBy
         {
-            get => this.ImportedBy;
+            get => this.user;
             set
             {
-                this.ImportedBy = value;
+                this.user   = value;
                 this.UserId = value?.Id;
             }
         }
@@ -72,13 +78,14 @@
         [Required][ForeignKey("ImportStatusId")]
         public virtual ImportStatus ImportStatus
         {
-            get => this.ImportStatus;
+            get => this.status;
             set
             {
-                this.ImportStatus   = value;
+                this.status = value;
                 this.ImportStatusId = value?.Id;
             }
         }
+        #endregion
 
         #region Calculated fields
         [NotMapped]
@@ -158,9 +165,30 @@
             this.Transactions.Add(newTransaction);
         }
 
+        public void AddInvalidTransaction(InvalidTransaction newTransaction)
+        {
+            newTransaction.BankImport = this;
+            this.InvalidTransactions.Add(newTransaction);
+        }
+
+        public void AddTransactions(ICollection<Transaction> newTransactions)
+        {
+            foreach (var newTransaction in newTransactions) { this.AddTransaction(newTransaction); }
+        }
+
+        public void AddInvalidTransactions(ICollection<InvalidTransaction> newTransactions)
+        {
+            foreach (var newTransaction in newTransactions) { this.AddInvalidTransaction(newTransaction); }
+        }
+
         public void RemoveTransaction(Transaction transactionToDelete)
         {
             this.Transactions.Remove(transactionToDelete);
+        }
+
+        public void RemoveInvalidTransaction(InvalidTransaction transactionToDelete)
+        {
+            this.InvalidTransactions.Remove(transactionToDelete);
         }
     }
 }

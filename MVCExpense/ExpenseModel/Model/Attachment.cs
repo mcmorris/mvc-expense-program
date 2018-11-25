@@ -17,44 +17,50 @@
         public int?         StatementId        { get; set; }
 
         [Required]
-        public int?         StatusId           { get; set; }
+        public int?         ImportStatusId     { get; set; }
 
         [MaxLength(255)]
         public string       Issue              { get; set; }
+
+        #region Foreign Keys
+        private File file;
+        private ImportStatus status;
+        private Statement statement;
 
         [Required]
         [ForeignKey("FileId")]
         public virtual File File
         {
-            get => this.File;
+            get => this.file;
             set
             {
-                this.File = value;
+                this.file = value;
                 this.FileId = value?.Id;
             }
         }
 
         [Required][ForeignKey("StatusId")]
-        public virtual     ImportStatus Status
+        public virtual ImportStatus Status
         {
-            get => this.Status;
+            get => this.status;
             set
             {
-                this.Status = value;
-                this.StatusId = value?.Id;
+                this.status = value;
+                this.ImportStatusId = value?.Id;
             }
         }
 
         [Required][ForeignKey("StatementId")]
         public virtual Statement StatementCovered
         {
-            get => this.StatementCovered;
+            get => this.statement;
             set
             {
-                this.StatementCovered = value;
+                this.statement = value;
                 this.StatementId = value?.Id;
             }
         }
+        #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> TransactionsCovered { get; set; }
@@ -95,7 +101,7 @@
             this.TransactionsCovered = transactionsCovered;
         }
 
-        public void AppendTransaction(Transaction transactionCovered)
+        public void AddTransaction(Transaction transactionCovered)
         {
             if (this.TransactionsCovered == null) { this.TransactionsCovered = new List<Transaction>(); }
             if (this.TransactionsCovered.Contains(transactionCovered)) { return; }
@@ -105,6 +111,16 @@
         public bool CoversTransaction(Transaction transactionToCheck)
         {
             return this.TransactionsCovered.Contains(transactionToCheck);
+        }
+
+        public void AddTransactions(ICollection<Transaction> newTransactions)
+        {
+            foreach (var newTransaction in newTransactions) { this.AddTransaction(newTransaction); }
+        }
+
+        public void RemoveCoverage(Transaction transactionToDelete)
+        {
+            this.TransactionsCovered.Remove(transactionToDelete);
         }
     }
 }

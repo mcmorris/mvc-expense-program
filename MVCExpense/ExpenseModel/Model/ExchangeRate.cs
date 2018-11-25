@@ -27,13 +27,17 @@
         [Required]
         public bool            Active                 { get; set; }
 
+        #region Foreign Keys
+        private ISO4217Currency currencyFrom;
+        private ISO4217Currency currencyTo;
+
         [Required][ForeignKey("CurrencyFromId")][Index("IDX_ExchangeRateCurrencyFromId")]
         public virtual ISO4217Currency CurrencyFrom
         {
-            get => this.CurrencyFrom;
+            get => this.currencyFrom;
             set
             {
-                this.CurrencyFrom = value;
+                this.currencyFrom   = value;
                 this.CurrencyFromId = value?.Id;
             }
         }
@@ -41,13 +45,14 @@
         [Required][ForeignKey("CurrencyToId")]
         public virtual ISO4217Currency CurrencyTo
         {
-            get => this.CurrencyTo;
+            get => this.currencyTo;
             set
             {
-                this.CurrencyTo = value;
+                this.currencyTo   = value;
                 this.CurrencyToId = value?.Id;
             }
         }
+        #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ExchangeRate()

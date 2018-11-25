@@ -42,18 +42,22 @@
         [MaxLength(255)][DataType(DataType.DateTime)]
         public string CardExpiry         { get; set; }
 
+        #region Foreign Keys
+        private BankImport bankImport;
+
         [ForeignKey("BankImportId")]
         public virtual BankImport BankImport
         {
-            get => this.BankImport;
+            get => this.bankImport;
             set
             {
-                this.BankImport = value;
+                this.bankImport = value;
                 this.BankImportId = value?.Id;
             }
         }
+        #endregion
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InvalidTransaction()
         {
 

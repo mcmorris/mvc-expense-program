@@ -27,17 +27,21 @@
 
         public int    FileSize     { get; set; }
 
+        #region Foreign Keys
+        private User user;
+
         [MaxLength(255)]
         [ForeignKey("UserId")]
         public virtual User Uploader
         {
-            get => this.Uploader;
+            get => this.user;
             set
             {
-                this.Uploader = value;
+                this.user = value;
                 this.UserId = value?.Id;
             }
         }
+        #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public File()
