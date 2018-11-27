@@ -80,6 +80,7 @@
       <DependentUpon>201811242154341_RefactoredChangeTrackingFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="CurrencyFactory.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Attachment.cs" />
     <Compile Include="Model\BankImport.cs" />

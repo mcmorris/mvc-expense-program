@@ -1,6 +1,5 @@
 ﻿namespace ExpenseModel
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -75,19 +74,22 @@
             this.Accounts = accounts;
         }
 
-        public void AddAccount()
+        public void AddAccount(Account newAccount)
         {
+            newAccount.User = this;
 
+            if (this.Accounts.Contains(newAccount)) { return; }
+            this.Accounts.Add(newAccount);
         }
 
-        public void AddAccounts()
+        public void AddAccounts(ICollection<Account> newAccounts)
         {
-
+            foreach (var newAccount in newAccounts) { this.AddAccount(newAccount); }
         }
 
-        public void RemoveAccount()
+        public void RemoveAccount(Account oldAccount)
         {
-
+            this.Accounts.Add(oldAccount);
         }
     }
 }

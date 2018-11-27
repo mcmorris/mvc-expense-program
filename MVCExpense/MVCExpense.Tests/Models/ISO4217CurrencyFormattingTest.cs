@@ -8,7 +8,7 @@
     using MVCExpense.Tests.Mockup.TddBankingTests;
 
     [TestClass]
-    public class ISO4217CurrencyFormattingTest
+    public class ISO4217CurrencyFormattingTest : TestBase
     {
         [TestMethod]
         public void TestDecimalCultureFormatting()
@@ -24,7 +24,7 @@
         [TestMethod]
         public void TestCurrencyCultureFormatting()
         {
-            var stockExchange = new StockExchange(new StockExchangeUpdater(), new MockUpCurrencyListing());
+            var stockExchange = new StockExchange(new StockExchangeUpdater(), new MockUpCurrencyListing(this.Model));
             /*var bank          = new Bank(stockExchange, new MockUpCurrencyListing(), "USD");
             Assert.AreEqual(bank.Dollar(100M).ToString(), "$100.00");
             Assert.AreEqual(bank.Pound(100M).ToString(),  "£100.00");

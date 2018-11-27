@@ -3,7 +3,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class ValidationTest
+    public class ValidationTest : TestBase
     {
         [TestMethod]
         public void Index()

@@ -3,10 +3,10 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class StatementTest
+    public class StatementTest : TestBase
     {
         [TestMethod]
-        public void TestStatementCanAddBankImports()
+        public void TestStatementCanAddAndRemoveBankImports()
         {
 
         }
@@ -26,7 +26,11 @@
         [TestMethod]
         public void TestStatementValidation()
         {
+            /*
+        [Required][DateRangeBetweenYear2000AndNow]
+        public DateTime     Month        { get; set; }
 
+            */
         }
     }
 }

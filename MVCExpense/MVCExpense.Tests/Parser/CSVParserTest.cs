@@ -5,7 +5,7 @@
     using MVCExpense.Parser;
 
     [TestClass]
-    public class CSVParserTest
+    public class CSVParserTest : TestBase
     {
         [TestMethod]
         public void Index()

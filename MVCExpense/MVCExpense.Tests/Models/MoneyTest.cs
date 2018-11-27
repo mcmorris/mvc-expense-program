@@ -3,7 +3,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class MoneyTest
+    public class MoneyTest : TestBase
     {
         [TestMethod]
         public void TestMoneyBasicAddition()

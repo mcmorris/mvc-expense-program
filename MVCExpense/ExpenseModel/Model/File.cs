@@ -10,13 +10,13 @@
         [Key][Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int    Id           { get; set; }
 
-        [MaxLength(255)][Index("IDX_FileUserId")]
+        [Required][MaxLength(255)][Index("IDX_FileUserId")]
         public string UserId       { get; set; }
 
         [Required][MaxLength(255)][DataType(DataType.Text)]
         public string FileName     { get; set; }
 
-        [Required][DataType(DataType.Url)]
+        [Required][MaxLength(255)][DataType(DataType.Url)]
         public string FilePath     { get; set; }
 
         [MaxLength(255)]
@@ -30,7 +30,6 @@
         #region Foreign Keys
         private User user;
 
-        [MaxLength(255)]
         [ForeignKey("UserId")]
         public virtual User Uploader
         {

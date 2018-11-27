@@ -2,41 +2,43 @@
 {
     namespace TddBankingTests
     {
-        using System;
         using System.Collections.Generic;
 
         using ExpenseModel;
 
         using MVCExpense.Controllers.OER;
+        using MVCExpense.Tests.Models;
 
         public class MockUpCurrencyListing : CurrencyListing
         {
-            public MockUpCurrencyListing() : base(new ISO4217Currency("USD", 2, "United States Dollar", null))
+            private ModelFactory model;
+
+            public MockUpCurrencyListing(ModelFactory model) : base(model.USD)
             {
                 this.Currencies = new List<ISO4217Currency>
                 {
-                    new ISO4217Currency("ADP", 0, "Andorran Peseta", DateTime.Parse("2003-07-01 12:00:00")),
-                    new ISO4217Currency("AED", 2, "United Arab Emirates Dirham", null),
-                    new ISO4217Currency("AFA", 0, "Afghan Afghani", DateTime.Parse("2003-01-01 12:00:00")),
-                    new ISO4217Currency("AFN", 2, "Afghan Afghani", null),
-                    new ISO4217Currency("ALK", 0, "Afghan Old Lek", DateTime.Parse("1989-12-01 12:00:00")),
-                    new ISO4217Currency("ALL", 2, "Albanian Lek", null),
-                    new ISO4217Currency("CAD", 2, "Canadian Dollar", null),
-                    new ISO4217Currency("CHF", 2, "Swiss Franc", null),
-                    new ISO4217Currency("EUR", 2, "Euro", null),
-                    new ISO4217Currency("FIM", 0, "Ãland Islands Markka", DateTime.Parse("2002-03-01 12:00:00")),
-                    new ISO4217Currency("GBP", 2, "Pound Sterling", null),
-                    new ISO4217Currency("ILS", 2, "Israeli New Shekel", null),
-                    new ISO4217Currency("IMP", 2, "Isle of Man pound (also Manx pound)", null),
-                    new ISO4217Currency("INR", 2, "Indian Rupee", null),
-                    new ISO4217Currency("TVD", 2, "Tuvalu Dollar", null),
-                    new ISO4217Currency("TWD", 2, "New Taiwan Dollar", null),
-                    new ISO4217Currency("USD", 2, "United States Dollar", null),
-                    new ISO4217Currency("VND", 0, "Vietnamese Dồng", null),
-                    new ISO4217Currency("XBT", 8, "Bitcoin", null),
-                    new ISO4217Currency("XXX", 0, "No ISO4217Currency", null),
-                    new ISO4217Currency("YER", 2, "Yemeni Rial", null),
-                    new ISO4217Currency("ZAR", 2, "South African Rand", null)
+                    model.ADP,
+                    model.AED,
+                    model.AFA,
+                    model.AFN,
+                    model.ALK,
+                    model.ALL,
+                    model.CAD,
+                    model.CHF,
+                    model.EUR,
+                    model.FIM,
+                    model.GBP,
+                    model.ILS,
+                    model.IMP,
+                    model.INR,
+                    model.TVD,
+                    model.TWD,
+                    model.USD,
+                    model.VND,
+                    model.XBT,
+                    model.XXX,
+                    model.YER,
+                    model.ZAR
                 };
             }
         }
